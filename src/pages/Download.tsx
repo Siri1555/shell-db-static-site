@@ -7,7 +7,7 @@ import {
   Download as DownloadIcon, 
   FileText, 
   Server, 
-  Code 
+  Archive 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -27,7 +27,7 @@ const Download = () => {
     if (!user) {
       toast({
         title: "Authentication Required",
-        description: "Please log in to download the ShellDB script.",
+        description: "Please log in to download the ShellDB package.",
         variant: "destructive",
       });
       navigate('/auth');
@@ -36,10 +36,10 @@ const Download = () => {
     
     toast({
       title: "Download Started",
-      description: "shelldb_agent.py is downloading...",
+      description: "shelldb_package.tar.gz is downloading...",
     });
     // In a real app, this would trigger an actual download
-    console.log("Downloading shelldb_agent.py");
+    console.log("Downloading shelldb_package.tar.gz");
   };
 
   const systemRequirements = [
@@ -102,7 +102,7 @@ const Download = () => {
                   Authentication Required
                 </h3>
                 <p className="text-gray-300">
-                  Visitors can view this page without logging in, but downloading the ShellDB script requires user login. 
+                  Visitors can view this page without logging in, but downloading the ShellDB package requires user login. 
                   After successful login, download will begin automatically.
                 </p>
               </div>
@@ -116,44 +116,45 @@ const Download = () => {
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <FileText className="text-shelldb-green" />
-                  <CardTitle className="text-lg">ShellDB Python Script</CardTitle>
+                  <Archive className="text-shelldb-green" />
+                  <CardTitle className="text-lg">ShellDB Installer Archive</CardTitle>
                 </div>
                 {!user && <Lock className="h-4 w-4 text-shelldb-blue" />}
               </div>
               <CardDescription>
-                A single .py file that acts as the core agent of the ShellDB framework
+                Complete ShellDB framework package in a compressed archive format
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="mb-6">
                 <p className="text-sm text-gray-300 mb-4">
-                  This script:
+                  This package contains:
                 </p>
                 <ul className="list-disc pl-6 text-sm text-gray-300 space-y-2">
-                  <li className="animate-fade-in" style={{ animationDelay: '100ms' }}>Monitors SQL queries for anomalies</li>
-                  <li className="animate-fade-in" style={{ animationDelay: '200ms' }}>Connects with OS-level logging for real-time threat detection</li>
-                  <li className="animate-fade-in" style={{ animationDelay: '300ms' }}>Queries the National Vulnerability Database (NVD) to assess CVE risks</li>
-                  <li className="animate-fade-in" style={{ animationDelay: '400ms' }}>Sends email alerts via configured SMTP settings</li>
+                  <li className="animate-fade-in" style={{ animationDelay: '100ms' }}>Main ShellDB runtime scripts</li>
+                  <li className="animate-fade-in" style={{ animationDelay: '200ms' }}>Configuration templates</li>
+                  <li className="animate-fade-in" style={{ animationDelay: '300ms' }}>Setup guide in README format</li>
+                  <li className="animate-fade-in" style={{ animationDelay: '400ms' }}>Logging and alerting scripts (SMTP support)</li>
+                  <li className="animate-fade-in" style={{ animationDelay: '500ms' }}>CVE sync script for querying the National Vulnerability Database (NVD)</li>
                 </ul>
               </div>
               
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="border border-shelldb-blue/10 rounded-md p-3">
                   <p className="text-xs text-gray-400 mb-1">File Name</p>
-                  <p className="text-sm font-mono text-shelldb-blue">shelldb_agent.py</p>
+                  <p className="text-sm font-mono text-shelldb-blue">shelldb_package.tar.gz</p>
                 </div>
                 <div className="border border-shelldb-blue/10 rounded-md p-3">
                   <p className="text-xs text-gray-400 mb-1">Size</p>
-                  <p className="text-sm">~120 KB</p>
+                  <p className="text-sm">~3.2 MB</p>
                 </div>
                 <div className="border border-shelldb-blue/10 rounded-md p-3">
-                  <p className="text-xs text-gray-400 mb-1">Language</p>
-                  <p className="text-sm">Python 3.x</p>
+                  <p className="text-xs text-gray-400 mb-1">Format</p>
+                  <p className="text-sm">Compressed .tar.gz archive</p>
                 </div>
                 <div className="border border-shelldb-blue/10 rounded-md p-3">
-                  <p className="text-xs text-gray-400 mb-1">Dependencies</p>
-                  <p className="text-sm font-mono text-xs">requests, smtplib, logging, json...</p>
+                  <p className="text-xs text-gray-400 mb-1">Supported Platforms</p>
+                  <p className="text-sm">Ubuntu 20.04+, CentOS 8+</p>
                 </div>
               </div>
               
@@ -163,6 +164,7 @@ const Download = () => {
                 className={user ? "bg-shelldb-blue hover:bg-shelldb-blue/90 w-full" : "w-full"}
               >
                 {user ? "Download" : "Login to Download"}
+                {user && <DownloadIcon className="ml-2 h-4 w-4" />}
               </Button>
             </CardContent>
           </Card>
@@ -174,19 +176,19 @@ const Download = () => {
             <ul className="text-sm text-gray-300 space-y-2">
               <li className="flex items-start">
                 <span className="text-shelldb-blue mr-2">•</span>
-                <span>The script is intended to run on the same server or network as the target database.</span>
+                <span>The .tar.gz archive contains all necessary files to run ShellDB securely.</span>
               </li>
               <li className="flex items-start">
                 <span className="text-shelldb-blue mr-2">•</span>
-                <span>Configuration instructions are provided in the Documentation section.</span>
+                <span>Root access is required to integrate at the OS/Kernel level.</span>
               </li>
               <li className="flex items-start">
                 <span className="text-shelldb-blue mr-2">•</span>
-                <span>Use caution and test on staging environments before deploying to production.</span>
+                <span>For deployment steps and detailed configuration, users should refer to the Documentation page.</span>
               </li>
               <li className="flex items-start">
                 <span className="text-shelldb-blue mr-2">•</span>
-                <span>Updates to this script will be announced on the homepage.</span>
+                <span>The package is designed to be deployed on your own database server or internal infrastructure.</span>
               </li>
             </ul>
           </div>
