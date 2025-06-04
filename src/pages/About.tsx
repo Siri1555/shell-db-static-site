@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Mail, Linkedin, Shield, Target, Users, Database } from 'lucide-react';
 
 const About = () => {
@@ -13,29 +12,33 @@ const About = () => {
       name: "Chakradhar Vinod Malage",
       role: "B.Tech Student",
       email: "chakumalage2003@gmail.com",
-      linkedin: "#",
-      initials: "CV"
+      linkedin: "https://www.linkedin.com/in/chakradhar-malage-a87596229/",
+      initials: "CV",
+      photo: "/lovable-uploads/002aaa56-7279-4ded-8bea-b56e403db9f1.png"
     },
     {
       name: "Pranav Mandar Mehendale", 
       role: "B.Tech Student",
       email: "pranav.m.mehendale@gmail.com",
-      linkedin: "#",
-      initials: "PM"
-    },
-    {
-      name: "Shirish Hanmant Hirapure",
-      role: "B.Tech Student", 
-      email: "shirishhirapure1555@gmail.com",
-      linkedin: "#",
-      initials: "SH"
+      linkedin: "https://www.linkedin.com/in/pranav-mehendale/",
+      initials: "PM",
+      photo: "/lovable-uploads/14fd94a6-7d14-4b91-a8e5-7d3e9e5f9ab4.png"
     },
     {
       name: "Vaishnavi Gugal",
       role: "B.Tech Student",
       email: "gugalvaishnavi@gmail.com", 
-      linkedin: "#",
-      initials: "VG"
+      linkedin: "https://www.linkedin.com/in/vaishnavigugal/",
+      initials: "VG",
+      photo: "/lovable-uploads/e8435488-a8a2-44f7-8ea8-c2d7c264bc09.png"
+    },
+    {
+      name: "Shirish Hanmant Hirapure",
+      role: "B.Tech Student", 
+      email: "shirishhirapure1555@gmail.com",
+      linkedin: "https://www.linkedin.com/in/shirishhirapure/",
+      initials: "SH",
+      photo: "/lovable-uploads/84842e7d-73b7-40f4-9436-312c82bcce63.png"
     }
   ];
 
@@ -155,6 +158,11 @@ const About = () => {
                 <CardHeader className="pb-2">
                   <div className="flex justify-center mb-4">
                     <Avatar className="w-20 h-20 border-2 border-shelldb-blue/30">
+                      <AvatarImage 
+                        src={member.photo} 
+                        alt={member.name}
+                        className="object-cover"
+                      />
                       <AvatarFallback className="bg-shelldb-blue/20 text-shelldb-blue text-lg font-semibold">
                         {member.initials}
                       </AvatarFallback>
