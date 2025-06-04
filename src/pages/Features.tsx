@@ -10,7 +10,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, BarC
 import { Radar, Shield, Brain, Bug, Mail, BarChart3, Terminal, Network, TrendingUp } from 'lucide-react';
 
 const Features = () => {
-  const [activeLayer, setActiveLayer] = useState(null);
+  const [activeLayer, setActiveLayer] = useState<string | null>(null);
   const [liveLogIndex, setLiveLogIndex] = useState(0);
   const [notificationCount, setNotificationCount] = useState(3);
 
@@ -28,7 +28,7 @@ const Features = () => {
       setLiveLogIndex((prev) => (prev + 1) % liveLogs.length);
     }, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [liveLogs.length]);
 
   // Chart data
   const threatData = [
@@ -565,7 +565,7 @@ const Features = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <Card className="bg-shelldb-blue/10 border-shelldb-blue/30">
                       <CardContent className="p-4 text-center">
-                        <h3 className="text-2xl font-bold text-shelldb-blue">< 1ms</h3>
+                        <h3 className="text-2xl font-bold text-shelldb-blue">&lt; 1ms</h3>
                         <p className="text-gray-300 text-sm">Response Time</p>
                       </CardContent>
                     </Card>
