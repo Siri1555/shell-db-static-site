@@ -41,10 +41,10 @@ const Features = () => {
   ];
 
   const mlMetrics = [
-    { metric: 'Accuracy', value: 99.6 },
-    { metric: 'Precision', value: 98.2 },
-    { metric: 'Recall', value: 97.8 },
-    { metric: 'F1-Score', value: 98.0 }
+    { metric: 'Accuracy', value: 89.0 },
+    { metric: 'Precision', value: 89.0 },
+    { metric: 'Recall', value: 90.0 },
+    { metric: 'F1-Score', value: 89.0 }
   ];
 
   const vulnerabilityData = [
@@ -249,7 +249,7 @@ const Features = () => {
                       <BarChart data={mlMetrics}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                         <XAxis dataKey="metric" stroke="#9CA3AF" />
-                        <YAxis stroke="#9CA3AF" domain={[90, 100]} />
+                        <YAxis stroke="#9CA3AF" domain={[80, 95]} />
                         <ChartTooltip content={<ChartTooltipContent />} />
                         <Bar dataKey="value" fill="#00ff8c" />
                       </BarChart>
@@ -377,118 +377,7 @@ const Features = () => {
           </Card>
         </section>
 
-        {/* 6. Security Dashboard */}
-        <section className="mb-20">
-          <Card className="bg-shelldb-darker border-shelldb-blue/20">
-            <CardHeader>
-              <CardTitle className="text-2xl text-shelldb-blue flex items-center">
-                <BarChart3 className="mr-3 w-7 h-7" />
-                Security Dashboard
-              </CardTitle>
-              <CardDescription>
-                Comprehensive admin control panel for monitoring and managing security operations
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Tabs defaultValue="alerts" className="w-full">
-                <TabsList className="grid w-full grid-cols-4">
-                  <TabsTrigger value="alerts">Alerts</TabsTrigger>
-                  <TabsTrigger value="logs">Logs</TabsTrigger>
-                  <TabsTrigger value="settings">Settings</TabsTrigger>
-                  <TabsTrigger value="ml">ML Updates</TabsTrigger>
-                </TabsList>
-                <TabsContent value="alerts" className="mt-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Card className="bg-red-900/20 border-red-500/30">
-                      <CardContent className="p-4 text-center">
-                        <h3 className="text-2xl font-bold text-red-400">23</h3>
-                        <p className="text-red-300">Critical Alerts</p>
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-yellow-900/20 border-yellow-500/30">
-                      <CardContent className="p-4 text-center">
-                        <h3 className="text-2xl font-bold text-yellow-400">45</h3>
-                        <p className="text-yellow-300">Warnings</p>
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-green-900/20 border-green-500/30">
-                      <CardContent className="p-4 text-center">
-                        <h3 className="text-2xl font-bold text-green-400">1,247</h3>
-                        <p className="text-green-300">Blocked Attempts</p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </TabsContent>
-                <TabsContent value="logs">
-                  <p className="text-gray-400">System logs and audit trails displayed here...</p>
-                </TabsContent>
-                <TabsContent value="settings">
-                  <p className="text-gray-400">Security configuration options...</p>
-                </TabsContent>
-                <TabsContent value="ml">
-                  <p className="text-gray-400">Machine learning model updates and training status...</p>
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* 7. Deployment & Setup Guide */}
-        <section className="mb-20">
-          <Card className="bg-shelldb-darker border-shelldb-blue/20">
-            <CardHeader>
-              <CardTitle className="text-2xl text-shelldb-green flex items-center">
-                <Terminal className="mr-3 w-7 h-7" />
-                Deployment & Setup Guide
-              </CardTitle>
-              <CardDescription>
-                Step-by-step installation process using Docker and MongoDB
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                {[
-                  {
-                    step: 1,
-                    title: "Download & Extract",
-                    command: "wget https://shelldb.tech/downloads/shelldb_package.tar.gz\ntar -xzf shelldb_package.tar.gz"
-                  },
-                  {
-                    step: 2,
-                    title: "Setup Environment",
-                    command: "cd shelldb/\nsudo ./setup.sh\ndocker-compose up -d"
-                  },
-                  {
-                    step: 3,
-                    title: "Configure Database",
-                    command: "sudo ./configure_db.sh mongodb://localhost:27017\nsudo systemctl enable shelldb"
-                  },
-                  {
-                    step: 4,
-                    title: "Start Monitoring",
-                    command: "sudo ./start_monitoring.sh\ncurl http://localhost:8080/status"
-                  }
-                ].map((item) => (
-                  <div key={item.step} className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-8 h-8 bg-shelldb-blue rounded-full flex items-center justify-center text-white font-semibold">
-                      {item.step}
-                    </div>
-                    <div className="flex-grow">
-                      <h4 className="font-semibold text-shelldb-blue mb-2">{item.title}</h4>
-                      <div className="bg-black rounded p-3 font-mono text-sm text-green-400">
-                        {item.command.split('\n').map((line, index) => (
-                          <div key={index}>$ {line}</div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* 8. ML Model Training */}
+        {/* 8. ML Model Training and Evolution */}
         <section className="mb-20">
           <Card className="bg-shelldb-darker border-shelldb-blue/20">
             <CardHeader>
@@ -526,7 +415,7 @@ const Features = () => {
           </Card>
         </section>
 
-        {/* 9. Performance Metrics */}
+        {/* 9. Performance & Testing Metrics */}
         <section className="mb-20">
           <Card className="bg-shelldb-darker border-shelldb-blue/20">
             <CardHeader>
@@ -593,26 +482,6 @@ const Features = () => {
             </CardContent>
           </Card>
         </section>
-
-        {/* Call to Action */}
-        <div className="text-center">
-          <Card className="bg-gradient-to-r from-shelldb-blue/10 to-shelldb-green/10 border-shelldb-blue/30">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold mb-4">Ready to Secure Your Database?</h3>
-              <p className="text-gray-300 mb-6">
-                Get started with ShellDB's advanced security features today
-              </p>
-              <div className="space-x-4">
-                <Button className="bg-shelldb-blue hover:bg-shelldb-blue/90">
-                  Download ShellDB
-                </Button>
-                <Button variant="outline" className="border-shelldb-green text-shelldb-green hover:bg-shelldb-green/10">
-                  View Documentation
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   );
