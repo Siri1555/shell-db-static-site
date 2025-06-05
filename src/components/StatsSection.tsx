@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Clock, Bug, Server, Shield } from 'lucide-react';
+import { Clock, Bug, Server, Shield, Zap } from 'lucide-react';
 
 const StatsSection = () => {
   const stats = [
@@ -20,9 +20,9 @@ const StatsSection = () => {
       icon: <Server className="w-8 h-8 mb-2 mx-auto text-shelldb-purple" />
     },
     { 
-      number: "24/7", 
-      label: "Monitoring",
-      icon: <Shield className="w-8 h-8 mb-2 mx-auto text-shelldb-blue" />
+      number: "15k", 
+      label: "Queries Per Hour",
+      icon: <Zap className="w-8 h-8 mb-2 mx-auto text-yellow-500" />
     }
   ];
 

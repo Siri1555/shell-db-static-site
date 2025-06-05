@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
-import { Radar, Shield, Brain, Bug, Mail, BarChart3, Terminal, Network, TrendingUp, Clock, Database, Server } from 'lucide-react';
+import { Radar, Shield, Brain, Bug, Mail, BarChart3, Terminal, Network, TrendingUp, Clock, Database, Server, Zap } from 'lucide-react';
 
 const Features = () => {
   const [activeLayer, setActiveLayer] = useState<string | null>(null);
@@ -473,7 +472,7 @@ const Features = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-lg font-semibold mb-4 text-shelldb-blue">Vulnerability Scanning Performance</h4>
+                  <h4 className="text-lg font-semibold mb-4 text-shelldb-blue">System Performance</h4>
                   <div className="grid grid-cols-1 gap-4">
                     <Card className="bg-shelldb-blue/10 border-shelldb-blue/30">
                       <CardContent className="p-4 text-center">
@@ -500,6 +499,15 @@ const Features = () => {
                           <h3 className="text-2xl font-bold text-shelldb-purple">6</h3>
                         </div>
                         <p className="text-gray-300 text-sm">Systems Scanned So Far</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="bg-yellow-500/10 border-yellow-500/30">
+                      <CardContent className="p-4 text-center">
+                        <div className="flex items-center justify-center mb-2">
+                          <Zap className="w-6 h-6 text-yellow-500 mr-2" />
+                          <h3 className="text-2xl font-bold text-yellow-500">15k</h3>
+                        </div>
+                        <p className="text-gray-300 text-sm">Queries Per Hour</p>
                       </CardContent>
                     </Card>
                   </div>
