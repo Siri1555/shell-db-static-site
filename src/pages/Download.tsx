@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { 
@@ -17,13 +17,33 @@ import {
   AccordionItem, 
   AccordionTrigger 
 } from '@/components/ui/accordion';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from "@/hooks/use-toast";
 
 const Download = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("ubuntu");
 
-  const handleDownload = () => {
+  const handleWindowsDownload = () => {
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to download the ShellDB package.",
+        variant: "destructive",
+      });
+      navigate('/auth');
+      return;
+    }
+    
+    toast({
+      title: "Coming Soon",
+      description: "Windows version is under development. Stay tuned!",
+      variant: "default",
+    });
+  };
+
+  const handleUbuntuDownload = () => {
     if (!user) {
       toast({
         title: "Authentication Required",
@@ -110,66 +130,139 @@ const Download = () => {
             <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-shelldb-blue/5 rounded-full blur-2xl"></div>
           </div>
 
-          <h2 className="text-2xl font-semibold mb-6 text-shelldb-blue">Available Download</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-shelldb-blue">Available Downloads</h2>
           
-          <Card className="bg-shelldb-darker border-shelldb-blue/20 hover:border-shelldb-blue/40 transition-all duration-300 mb-8">
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <Archive className="text-shelldb-green" />
-                  <CardTitle className="text-lg">ShellDB Installer Archive</CardTitle>
-                </div>
-                {!user && <Lock className="h-4 w-4 text-shelldb-blue" />}
-              </div>
-              <CardDescription>
-                Complete ShellDB framework package in a compressed archive format
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="mb-6">
-                <p className="text-sm text-gray-300 mb-4">
-                  This package contains:
-                </p>
-                <ul className="list-disc pl-6 text-sm text-gray-300 space-y-2">
-                  <li className="animate-fade-in" style={{ animationDelay: '100ms' }}>Main ShellDB runtime scripts</li>
-                  <li className="animate-fade-in" style={{ animationDelay: '200ms' }}>Configuration templates</li>
-                  <li className="animate-fade-in" style={{ animationDelay: '300ms' }}>Setup guide in README format</li>
-                  <li className="animate-fade-in" style={{ animationDelay: '400ms' }}>Logging and alerting scripts (SMTP support)</li>
-                  <li className="animate-fade-in" style={{ animationDelay: '500ms' }}>CVE sync script for querying the National Vulnerability Database (NVD)</li>
-                </ul>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="border border-shelldb-blue/10 rounded-md p-3">
-                  <p className="text-xs text-gray-400 mb-1">File Name</p>
-                  <p className="text-sm font-mono text-shelldb-blue">shelldb_package.tar.gz</p>
-                </div>
-                <div className="border border-shelldb-blue/10 rounded-md p-3">
-                  <p className="text-xs text-gray-400 mb-1">Size</p>
-                  <p className="text-sm">~3.2 MB</p>
-                </div>
-                <div className="border border-shelldb-blue/10 rounded-md p-3">
-                  <p className="text-xs text-gray-400 mb-1">Format</p>
-                  <p className="text-sm">Compressed .tar.gz archive</p>
-                </div>
-                <div className="border border-shelldb-blue/10 rounded-md p-3">
-                  <p className="text-xs text-gray-400 mb-1">Supported Platforms</p>
-                  <p className="text-sm">Ubuntu 20.04+, CentOS 8+</p>
-                </div>
-              </div>
-              
-              <Button 
-                onClick={handleDownload}
-                variant={user ? "default" : "outline"}
-                className={user ? "bg-shelldb-blue hover:bg-shelldb-blue/90 w-full" : "w-full"}
-              >
-                {user ? "Download" : "Login to Download"}
-                {user && <DownloadIcon className="ml-2 h-4 w-4" />}
-              </Button>
-            </CardContent>
-          </Card>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-2 bg-shelldb-darker border border-shelldb-blue/20">
+              <TabsTrigger value="ubuntu" className="data-[state=active]:bg-shelldb-blue/20 data-[state=active]:text-shelldb-blue">
+                Download ShellDB for Ubuntu
+              </TabsTrigger>
+              <TabsTrigger value="windows" className="data-[state=active]:bg-shelldb-blue/20 data-[state=active]:text-shelldb-blue">
+                Download ShellDB for Windows
+              </TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="ubuntu" className="mt-6">
+              <Card className="bg-shelldb-darker border-shelldb-blue/20 hover:border-shelldb-blue/40 transition-all duration-300">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <Archive className="text-shelldb-green" />
+                      <CardTitle className="text-lg">ShellDB Ubuntu Package</CardTitle>
+                    </div>
+                    {!user && <Lock className="h-4 w-4 text-shelldb-blue" />}
+                  </div>
+                  <CardDescription>
+                    Complete ShellDB framework package optimized for Ubuntu systems
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="mb-6">
+                    <p className="text-sm text-gray-300 mb-4">
+                      This package contains:
+                    </p>
+                    <ul className="list-disc pl-6 text-sm text-gray-300 space-y-2">
+                      <li className="animate-fade-in" style={{ animationDelay: '100ms' }}>Main ShellDB runtime scripts</li>
+                      <li className="animate-fade-in" style={{ animationDelay: '200ms' }}>Configuration templates</li>
+                      <li className="animate-fade-in" style={{ animationDelay: '300ms' }}>Setup guide in README format</li>
+                      <li className="animate-fade-in" style={{ animationDelay: '400ms' }}>Logging and alerting scripts (SMTP support)</li>
+                      <li className="animate-fade-in" style={{ animationDelay: '500ms' }}>CVE sync script for querying the National Vulnerability Database (NVD)</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="border border-shelldb-blue/10 rounded-md p-3">
+                      <p className="text-xs text-gray-400 mb-1">File Name</p>
+                      <p className="text-sm font-mono text-shelldb-blue">shelldb_package.tar.gz</p>
+                    </div>
+                    <div className="border border-shelldb-blue/10 rounded-md p-3">
+                      <p className="text-xs text-gray-400 mb-1">Size</p>
+                      <p className="text-sm">~3.2 MB</p>
+                    </div>
+                    <div className="border border-shelldb-blue/10 rounded-md p-3">
+                      <p className="text-xs text-gray-400 mb-1">Format</p>
+                      <p className="text-sm">Compressed .tar.gz archive</p>
+                    </div>
+                    <div className="border border-shelldb-blue/10 rounded-md p-3">
+                      <p className="text-xs text-gray-400 mb-1">Supported Versions</p>
+                      <p className="text-sm">Ubuntu 20.04+, CentOS 8+</p>
+                    </div>
+                  </div>
+                  
+                  <Button 
+                    onClick={handleUbuntuDownload}
+                    variant={user ? "default" : "outline"}
+                    className={user ? "bg-shelldb-blue hover:bg-shelldb-blue/90 w-full" : "w-full"}
+                  >
+                    {user ? "Download for Ubuntu" : "Login to Download"}
+                    {user && <DownloadIcon className="ml-2 h-4 w-4" />}
+                  </Button>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="windows" className="mt-6">
+              <Card className="bg-shelldb-darker border-shelldb-blue/20 hover:border-shelldb-blue/40 transition-all duration-300">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <Archive className="text-shelldb-purple" />
+                      <CardTitle className="text-lg">ShellDB Windows Package</CardTitle>
+                    </div>
+                    <div className="bg-yellow-500/20 px-2 py-1 rounded text-xs text-yellow-400">
+                      Coming Soon
+                    </div>
+                  </div>
+                  <CardDescription>
+                    ShellDB package for Windows Server environments (In Development)
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="mb-6">
+                    <p className="text-sm text-gray-300 mb-4">
+                      Windows version will include:
+                    </p>
+                    <ul className="list-disc pl-6 text-sm text-gray-300 space-y-2 opacity-70">
+                      <li>Windows-optimized runtime binaries</li>
+                      <li>PowerShell configuration scripts</li>
+                      <li>Windows Service integration</li>
+                      <li>Event Log monitoring</li>
+                      <li>Active Directory integration support</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4 mb-6 opacity-50">
+                    <div className="border border-shelldb-blue/10 rounded-md p-3">
+                      <p className="text-xs text-gray-400 mb-1">File Name</p>
+                      <p className="text-sm font-mono text-shelldb-purple">shelldb_windows.msi</p>
+                    </div>
+                    <div className="border border-shelldb-blue/10 rounded-md p-3">
+                      <p className="text-xs text-gray-400 mb-1">Expected Size</p>
+                      <p className="text-sm">~5.8 MB</p>
+                    </div>
+                    <div className="border border-shelldb-blue/10 rounded-md p-3">
+                      <p className="text-xs text-gray-400 mb-1">Format</p>
+                      <p className="text-sm">MSI Installer Package</p>
+                    </div>
+                    <div className="border border-shelldb-blue/10 rounded-md p-3">
+                      <p className="text-xs text-gray-400 mb-1">Supported Versions</p>
+                      <p className="text-sm">Windows Server 2019+</p>
+                    </div>
+                  </div>
+                  
+                  <Button 
+                    onClick={handleWindowsDownload}
+                    variant="outline"
+                    className="w-full border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10"
+                  >
+                    Coming Soon – Stay Tuned!
+                  </Button>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
           
-          <div className="bg-shelldb-darker/50 p-6 rounded-lg border border-shelldb-blue/10 mb-6">
+          <div className="bg-shelldb-darker/50 p-6 rounded-lg border border-shelldb-blue/10 mb-6 mt-8">
             <h3 className="text-lg font-semibold text-shelldb-blue mb-3">
               Additional Notes
             </h3>

@@ -1,12 +1,29 @@
 
 import React from 'react';
+import { Clock, Bug, Server, Shield } from 'lucide-react';
 
 const StatsSection = () => {
   const stats = [
-    { number: "99.9%", label: "Protection Rate" },
-    { number: "<5ms", label: "Response Time" },
-    { number: "10,000+", label: "Databases Protected" },
-    { number: "24/7", label: "Monitoring" }
+    { 
+      number: "< 5 min", 
+      label: "Average Vulnerability Scan Time",
+      icon: <Clock className="w-8 h-8 mb-2 mx-auto text-shelldb-blue" />
+    },
+    { 
+      number: "200,000+", 
+      label: "CVE Count Tracked",
+      icon: <Bug className="w-8 h-8 mb-2 mx-auto text-shelldb-green" />
+    },
+    { 
+      number: "6", 
+      label: "Systems Scanned So Far",
+      icon: <Server className="w-8 h-8 mb-2 mx-auto text-shelldb-purple" />
+    },
+    { 
+      number: "24/7", 
+      label: "Monitoring",
+      icon: <Shield className="w-8 h-8 mb-2 mx-auto text-shelldb-blue" />
+    }
   ];
 
   return (
@@ -15,6 +32,7 @@ const StatsSection = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
+              {stat.icon}
               <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-shelldb-blue to-shelldb-green">
                 {stat.number}
               </div>

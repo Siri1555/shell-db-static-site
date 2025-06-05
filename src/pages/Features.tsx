@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
-import { Radar, Shield, Brain, Bug, Mail, BarChart3, Terminal, Network, TrendingUp } from 'lucide-react';
+import { Radar, Shield, Brain, Bug, Mail, BarChart3, Terminal, Network, TrendingUp, Clock, Database, Server } from 'lucide-react';
 
 const Features = () => {
   const [activeLayer, setActiveLayer] = useState<string | null>(null);
@@ -53,10 +53,38 @@ const Features = () => {
     { severity: 'Low', count: 78, color: '#10b981' }
   ];
 
-  const cveData = [
-    { software: "MySQL", version: "8.0.25", cve: "CVE-2023-1234", severity: "High", score: 9.8 },
-    { software: "PostgreSQL", version: "13.2", cve: "CVE-2023-5678", severity: "Medium", score: 6.5 },
-    { software: "MongoDB", version: "4.4.0", cve: "CVE-2023-9012", severity: "Low", score: 3.2 }
+  // Updated CVE data with real-world examples
+  const notableCVEs = [
+    {
+      cve: "CVE-2017-5638",
+      title: "Apache Struts RCE",
+      category: "Web Application Backend",
+      description: "Vulnerability in Apache Struts 2 allowing RCE via malformed Content-Type headers.",
+      impact: "Remote Code Execution",
+      realWorld: "Equifax breach (~147 million users)",
+      severity: "High",
+      score: 10.0
+    },
+    {
+      cve: "CVE-2021-44228",
+      title: "Log4Shell (Apache Log4j)",
+      category: "Java Web Applications", 
+      description: "Allows RCE via crafted JNDI strings in logs.",
+      impact: "Remote Code Execution",
+      realWorld: "CVSS 10.0 (Critical)",
+      severity: "Critical",
+      score: 10.0
+    },
+    {
+      cve: "CVE-2016-5195",
+      title: "Dirty COW (Linux Kernel)",
+      category: "Operating System",
+      description: "Local Privilege Escalation via memory mapping bug.",
+      impact: "Privilege Escalation",
+      realWorld: "Actively used in real-world Linux attacks",
+      severity: "High",
+      score: 7.8
+    }
   ];
 
   const securityLayers = [
@@ -276,31 +304,26 @@ const Features = () => {
             <CardContent className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="text-lg font-semibold mb-4 text-shelldb-green">Known Vulnerabilities</h4>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Software</TableHead>
-                        <TableHead>Version</TableHead>
-                        <TableHead>CVE</TableHead>
-                        <TableHead>Score</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {cveData.map((item, index) => (
-                        <TableRow key={index}>
-                          <TableCell>{item.software}</TableCell>
-                          <TableCell>{item.version}</TableCell>
-                          <TableCell>
-                            <Badge variant={item.severity === 'High' ? 'destructive' : item.severity === 'Medium' ? 'default' : 'secondary'}>
-                              {item.cve}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>{item.score}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                  <h4 className="text-lg font-semibold mb-4 text-shelldb-green">🔎 Notable CVEs Detected</h4>
+                  <div className="space-y-4 max-h-96 overflow-y-auto">
+                    {notableCVEs.map((cve, index) => (
+                      <div key={index} className="border border-shelldb-blue/20 rounded-lg p-4 bg-shelldb-darker/30">
+                        <div className="flex items-center justify-between mb-2">
+                          <h5 className="font-semibold text-shelldb-blue">{cve.cve} – {cve.title}</h5>
+                          <Badge variant={cve.severity === 'Critical' ? 'destructive' : cve.severity === 'High' ? 'destructive' : 'default'}>
+                            {cve.severity}
+                          </Badge>
+                        </div>
+                        <p className="text-xs text-shelldb-green mb-1">Category: {cve.category}</p>
+                        <p className="text-sm text-gray-300 mb-2">{cve.description}</p>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-red-400">Impact: {cve.impact}</span>
+                          <span className="text-yellow-400">CVSS: {cve.score}</span>
+                        </div>
+                        <p className="text-xs text-gray-400 mt-1">Used in: {cve.realWorld}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <div>
@@ -415,7 +438,7 @@ const Features = () => {
           </Card>
         </section>
 
-        {/* 9. Performance & Testing Metrics */}
+        {/* 9. Performance & Testing Metrics - Updated */}
         <section className="mb-20">
           <Card className="bg-shelldb-darker border-shelldb-blue/20">
             <CardHeader>
@@ -424,7 +447,7 @@ const Features = () => {
                 Performance & Testing Metrics
               </CardTitle>
               <CardDescription>
-                Real-world performance statistics and scalability metrics
+                Real-world performance statistics and vulnerability scanning metrics
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -450,30 +473,33 @@ const Features = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-lg font-semibold mb-4 text-shelldb-blue">System Performance</h4>
-                  <div className="grid grid-cols-2 gap-4">
+                  <h4 className="text-lg font-semibold mb-4 text-shelldb-blue">Vulnerability Scanning Performance</h4>
+                  <div className="grid grid-cols-1 gap-4">
                     <Card className="bg-shelldb-blue/10 border-shelldb-blue/30">
                       <CardContent className="p-4 text-center">
-                        <h3 className="text-2xl font-bold text-shelldb-blue">&lt; 1ms</h3>
-                        <p className="text-gray-300 text-sm">Response Time</p>
+                        <div className="flex items-center justify-center mb-2">
+                          <Clock className="w-6 h-6 text-shelldb-blue mr-2" />
+                          <h3 className="text-2xl font-bold text-shelldb-blue">&lt; 5 min</h3>
+                        </div>
+                        <p className="text-gray-300 text-sm">Average Vulnerability Scan Time</p>
                       </CardContent>
                     </Card>
                     <Card className="bg-shelldb-green/10 border-shelldb-green/30">
                       <CardContent className="p-4 text-center">
-                        <h3 className="text-2xl font-bold text-shelldb-green">1M+</h3>
-                        <p className="text-gray-300 text-sm">Queries/Hour</p>
+                        <div className="flex items-center justify-center mb-2">
+                          <Bug className="w-6 h-6 text-shelldb-green mr-2" />
+                          <h3 className="text-2xl font-bold text-shelldb-green">200,000+</h3>
+                        </div>
+                        <p className="text-gray-300 text-sm">CVE Count Tracked</p>
                       </CardContent>
                     </Card>
                     <Card className="bg-shelldb-purple/10 border-shelldb-purple/30">
                       <CardContent className="p-4 text-center">
-                        <h3 className="text-2xl font-bold text-shelldb-purple">50MB</h3>
-                        <p className="text-gray-300 text-sm">Memory Usage</p>
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-yellow-500/10 border-yellow-500/30">
-                      <CardContent className="p-4 text-center">
-                        <h3 className="text-2xl font-bold text-yellow-500">99.9%</h3>
-                        <p className="text-gray-300 text-sm">Uptime</p>
+                        <div className="flex items-center justify-center mb-2">
+                          <Server className="w-6 h-6 text-shelldb-purple mr-2" />
+                          <h3 className="text-2xl font-bold text-shelldb-purple">6</h3>
+                        </div>
+                        <p className="text-gray-300 text-sm">Systems Scanned So Far</p>
                       </CardContent>
                     </Card>
                   </div>
