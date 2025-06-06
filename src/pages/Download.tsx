@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -54,11 +53,24 @@ const Download = () => {
       return;
     }
     
+    // Create a dummy download using a blob or dummy file
+    const dummyContent = "ShellDB Package - This is a dummy file for testing purposes";
+    const blob = new Blob([dummyContent], { type: 'application/gzip' });
+    const url = window.URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'shelldb_package.tar.gz';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+    
     toast({
       title: "Download Started",
       description: "shelldb_package.tar.gz is downloading...",
     });
-    // In a real app, this would trigger an actual download
+    
     console.log("Downloading shelldb_package.tar.gz");
   };
 
