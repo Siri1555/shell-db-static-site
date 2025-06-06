@@ -65,6 +65,22 @@ const About = () => {
     }
   ];
 
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const message = formData.get('message');
+    
+    // Create mailto link with form data
+    const subject = `Contact Form Submission from ${name}`;
+    const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+    const mailtoLink = `mailto:support@shelldb.tech?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Open email client
+    window.location.href = mailtoLink;
+  };
+
   return (
     <div className="py-20 animate-fade-in">
       <div className="container mx-auto px-4 max-w-6xl">
@@ -209,7 +225,7 @@ const About = () => {
           <div className="max-w-2xl mx-auto">
             <Card className="bg-shelldb-darker border-shelldb-blue/20">
               <CardContent className="p-8">
-                <form action="mailto:support@shelldb.tech" method="post" encType="text/plain" className="space-y-6">
+                <form onSubmit={handleFormSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                       Name
